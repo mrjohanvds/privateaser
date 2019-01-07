@@ -157,8 +157,22 @@ function calcPrices()
 function calcPrice(id, time, persons){
     var price = 0;
     for(var i = 0; i < bars.length; i++)
-        if(bars[i].id === id)
-            price = time * bars[i].pricePerHour + persons * bars[i].pricePerPerson;
+        if(bars[i].id === id){
+            if(persons > 10){
+                if(persons > 20){
+                    if(persons > 50)
+                        price = time * bars[i].pricePerHour + (persons * bars[i].pricePerPerson)*0.5;
+                    else
+                        price = time * bars[i].pricePerHour + (persons * bars[i].pricePerPerson)*0.7;
+                }
+                else
+                        price = time * bars[i].pricePerHour + (persons * bars[i].pricePerPerson)*0.9;
+            }
+            else
+                price = time * bars[i].pricePerHour + (persons * bars[i].pricePerPerson);
+                        
+        }
+        
     return price;
 }
 
