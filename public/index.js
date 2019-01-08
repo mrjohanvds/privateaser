@@ -187,6 +187,38 @@ function calcPrice(id, time, persons){
 
 calcPrices();
 
+function calcPayment()
+{
+    for(var actor of actors)
+    {
+        event = events.find(function(theevent){
+            return theevent.id === actor.eventId;
+        });
+        var price = event.price;
+        var insurance = event.commission.insurance;
+        var treasury = event.commission.treasury;
+        var privateaser = event.commission.privateaser;
+        
+        var commission = insurance + treasury + privateaser;
+        
+        for(var pay of actor.payment)
+        {
+            if(pay.who === "booker")
+                pay.amount = price;
+            if(pay.who === "bar")
+                pay.amount = price - commission;
+            if(pay.who === "insurance")
+                pay.amount = insurance;
+            if(pay.who === "treasury")
+                pay.amount = treasury;
+            if(pay.who === "privateaser")
+                pay.amount = privateaser;
+        }
+    }
+}
+
+calcPayment();
+
 console.log(bars);
 console.log(events);
 console.log(actors);
