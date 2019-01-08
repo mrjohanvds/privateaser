@@ -154,6 +154,12 @@ function calcPrices()
         events[i].commission.insurance = events[i].price * 0.3 / 2;
         events[i].commission.treasury = events[i].persons;
         events[i].commission.privateaser = events[i].price * 0.3 - (events[i].commission.insurance + events[i].commission.treasury);
+        
+        if(events[i].options.deductibleReduction)
+        {
+            events[i].commission.privateaser += events[i].persons;
+            events[i].price += events[i].persons;
+        }
     }
 }
 
